@@ -2,24 +2,27 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
-public class HelloRunnable implements Runnable {
-
-
+class HelloRunnable implements Runnable {
     private static volatile boolean running = true;
 
     public void run() {
         int counter = 0;
+        int i = 0;
+        Thread[] myThreads = new Thread[1000];
+        myThreads[i] = new Thread(new HelloRunnable());
+
         while (running) {
             try {
                 LocalTime time = LocalTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-                ++counter;
-                System.out.println("Hello World! I'm thread " + counter + ". The time is " + time.format(formatter) + ".");
+                counter++;
+                System.out.println("Hello World! I'm thread " + (char) (i + 65) + " " + counter + ". The time is " + time.format(formatter) + ".");
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
-                if (!running) {
-                    break;
-                }
+                System.out.println();
+//                if (!running) {
+//                    break;
+//                }
             }
         }
     }
@@ -28,44 +31,33 @@ public class HelloRunnable implements Runnable {
         running = false;
     }
 
-
     public static void main(String[] args) {
 
-        // give user options
         System.out.println("Here are your options");
-        System.out.println("a - Create a new thread \nb - Stop a given thread (e.g. \"b 2\" kills thread 2)\nc - Stop all threads and exit this program");
-
+        System.out.println("a - Create a new thread \nb - Stop a given thread \nc - Stop all threads and exit this program");
         Scanner input = new Scanner(System.in);
         String option = input.nextLine();
 
         while (!option.equals("c")) {
+            int i = 0;
+            Thread[] myThreads = new Thread[1000];
+            myThreads[i] = new Thread(new HelloRunnable());
             switch (option) {
                 case "a":
                     System.out.println("Creating a new thread");
-                    (new Thread(new HelloRunnable())).start();
-                    // equivalent to:
-                    // HelloRunnable w = new HelloRunnable();
-                    // Thread t = new Thread(w);
-                    // t.start();
+                    myThreads[i].start();
                     break;
                 case "b":
-                    System.out.println("Stopping thread");
-                    HelloRunnable.stopThread();
-                    break;
-                case "c":
-                    System.out.println("Stopping and exiting program");
-                    HelloRunnable.stopThread();
-                    input.close();
+                    System.out.println("Stopping thread " + (char) (i + 65));
+                    stopThread();
                     break;
                 default:
                     System.out.println("Please pick from a, b, and c.");
-
             }
             option = input.nextLine();
         }
-        if (option.equals("c")) {
-            System.out.println("Stop all threads and exit the program");
-        }
+        System.out.println("Stopping all threads and exiting the program");
+        stopThread();
+        input.close();
     }
-
 }
