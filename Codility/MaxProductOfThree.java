@@ -22,3 +22,8 @@ class Solution {
         return Math.max(max1, max2);
     }
 }
+
+// TAKEAWAY
+// Make sure to test all cases:
+    // When all integers are negative
+    // When there are both positive and negative integers, find max of minimum possible combinations to save memory

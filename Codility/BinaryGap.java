@@ -43,3 +43,7 @@ class Solution {
         
     }
 }
+
+// Make sure to test all cases
+    // when binary ends with 0
+    // when binary has two consecutive 1 

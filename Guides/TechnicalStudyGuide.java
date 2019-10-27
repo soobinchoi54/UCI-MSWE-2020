@@ -9,7 +9,6 @@
 	String [] a = new String {"value1", "value2", "value3"}; // with values
 	String [] a = new String[4]; // with size
 
-
 	// a List
 	List a = new ArrayList();
 	List b = new LinkedList();
@@ -21,6 +20,10 @@
 		list.add(i);
 	List<String> list = Arrays.asList("item1", "item2", "item3"); // with values
 
+	// Hash Set
+	HashSet<Integer> set = new HashSet<Integer>();
+		// to add
+		set.add(i);
 
 // FILL
 
@@ -35,7 +38,7 @@
 	Arrays.sort(a, 2); // sort from startIndex to end of Array
 
 	// an ArrayList 
-	ArrayList<Integer> list = new ArrayList<String>;
+	ArrayList<Integer> list = new ArrayList<String>; // import java.util.Arrays
 	Collections.sort(list);
 
 // FIND/GET/RETRIEVE
@@ -61,7 +64,7 @@
 	char c = string.charAt(i);
 
 	// SIZE & LENGTH
-	
+
 		// Length of String 
 		string.length();
 
@@ -70,6 +73,17 @@
 
 		// Size of an ArrayList 
 		list.size();
+
+		// Size of a HashSet
+		set.size();
+
+// BOOLEAN
+
+	// Contains
+
+		// if a set contains
+		set.contains(i);
+		!set.contains(i);
 
 // REMOVE
 
@@ -87,6 +101,16 @@
 
 	// Integer to Binary String
 	String binaryString = Integer.toBinaryString(N);
+
+// TREE
+
+	// Find the number of nodes along the longest path from the root noode down the farthest leaf node; a leaf is a node with no children
+	int depthLeft = maxDepth(node.left) + 1;
+	int depthRight = maxDepth(node.right) + 1;
+
+	// Find the minimum depth 
+	int depthLeft = minDepth(node.left);
+	int depthRight = findMinDepth(node.right);
 
 // PRIORITY QUEUE
 
@@ -113,6 +137,12 @@
 	// Return the GREATER of the two integer values
 	Math.max(50, 500);
 
+	// Return the power of two values
+	Math.pow(2, 10); // 2^10 
+
+	// Return the log of value N
+	Math.log(N);
+
 // STATEMENTS
 
 	continue;
@@ -120,6 +150,24 @@
 	// causes loop to immediately jump to next iteration of the loop 
 		// for loop: continue keyword causes control to imeediately jump to the update statement 
 		// while loop: control imeediately jumps to the boolean expression
+
+// EXPRESSIONS 
+
+	// For each integer i an array called nums 
+	for (int i : nums) 
+
+// Java.lang Package classes
+
+	// Java.lang - Integer 
+		// Declaration for java.lang.Integer class
+		public final class Integer extends Number
+			implements Comparable<Integer>
+
+			// Fields
+			static int MAX_VALUE // constant holding the maximum value an int can have
+			static int MIN_VALUE // constant holding the minimum value an int can have
+			static int SIZE // number of bits used to represent an int value in two's complement binary form 
+			static Class<Integer> TYPE // class instance representing the primitive type int
 
 // ERRORS
 
