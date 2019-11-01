@@ -5,11 +5,9 @@ Learning Outcome 2
 Conceptual knowledge
 
 [Understanding of the input/output streams]
+	* Input streams read data, output streams write data 
+	* Filters can modify the data as it's read or written (by encryption or compression or into other formats) and can be chained to either an input stream or an output stream 
+	* Streams are synchronous; meaning when a program asks a stream to read or write a piece of data, it waits for the task to be completed before it does anything else 
+		* Nonblocking I/O can be much faster in some high-volumn applications such as web servers 
+		 
 [Understanding of the use of threading model in the construction of input/output streams]
-
-
-Practical knowledge in Java
-
-[How to instantiate different types of input/output streams in Java]
-[How to use input/output streams in Java to read/write to a file]
-[How to use the concurrency mechanisms in the construction of reader and writer functionality]
