@@ -174,7 +174,7 @@ FROM 		vendors
 	JOIN 	invoices USING (vendor_id)
 ORDER BY 	invoice_number 
 /* How to code and use unions */
--- Like a join, a union cmobines data from two or more tables.
+-- Like a join, a union combines data from two or more tables.
 -- Instead of combining columns from base tables, a union combines rows from two or more result sets 
 -- Result returns the same number of columns, and corresponding columns in each result set must have compatible data types 
 -- By default eliminates duplicate rows, to include duplicates code ALL keyword 

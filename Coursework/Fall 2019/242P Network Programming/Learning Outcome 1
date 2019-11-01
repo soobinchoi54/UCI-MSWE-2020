@@ -1,0 +1,88 @@
+SWE 242P Network Programming 
+
+Learning Outcome 1 
+
+Conceptual knowledge
+
+[The layers of a network]
+	* Network: a collection of computers and other devices that can send data to and receive data from one another, more or less in real time
+	* Node: each machine on a network (mostly computers, but any device like routers, bridges, printers can also be nodes)
+	* Hosts: nodes that are fully functional computers (general-purpose computer)
+
+	* Each layer represents a different level of abstraction between the physical hardware and the information being transmitted 
+	- Host-to-Network Layer (aka the link layer, data link layer, network interface layer)
+		* Defines how a particular network interface - ethernet card or wifi antenna - sends IP datagrams over its physical connection to the local network and the world 
+		* Java never sees the physical layer
+		* The primary reason to think about host-to-network layer and the physical layer is performance 
+	- Internet Layer (network layer)
+		* Defines how bits and bytes of data are organized into the larger groups called packets, and the addressing scheme by which different machines find one another
+		* Enables different types of host-to-network layers to talk to each other; it is responsible for connecting heterogeneous networks to each other using homogeneous protocols
+	- Transport Layer 
+		* Responsible for ensuring that packets are received in the order they were sent and that no data is lost or corrupted
+	- Application Layer
+		* The layer that delivers data to the user
+		* The 3 lower layers all work together to define how data is transferred from one computer to another, the application layer decides what to do with the data after it's transferred 
+		* This layer is where most of the network parts of your programs spend their time
+
+[Differences between IP, TCP, and UDP layers]
+	- IP: Internet Protocol
+		* Designed to allow multiple routes between any two points and to route packets of data around damaged routers 
+		* Open and platform-independent
+	- TCP: Transmission Control Protocol 
+		* TCP is a connection-based protocol that provides a reliable flow of data between two computers
+		* Layered on top of IP to give each end of a connection the ability to acknowledge receipt of IP packets and request retransmission of lost or corrupted packets
+		* Guarantees that data sent from one end of the connection actually gets to the other end and in the same order it was sent (order-critical)
+		* Provides a point-to-point channel for applications that require reliable communications
+	- UDP: User Datagram Protocol
+		* UDP is a protocol that sends independent packets of data, called datagrams, from one computer to another with no guarantees about arrival 
+		* Does not guarantee that packets will arrive at their destination or that they will arrive in the same order they were sent 
+		* Acceptable for applications where the loss of some data would go unnoticed by the end user
+		* Error-correcting codes can be built into UDP data streams at the application level to account for missing data
+	* Java only supports TCP and UDP, and application layer protocols built on top of these  
+
+[Basic understanding of IP addresses and ports]
+	- IP Addresses
+		* Every computer attached to an IPv4 network has a unique four-byte address 
+		* When data is transmitted across the network, the packet's header includes the address of the machine for which the packet is intended (destination address) and the address of the machine that sent the packet (the source address)
+		* There are 4 billion + possible IP addresses (not enough) and the addresses aren't allocated very efficiently
+		* Transition is under way for IPv6, which will use 16-byte addresses, enough to identify every person, computer, and device on the planet
+		* Domain Name System (DNS) was developed to translate hostnames that humans can remember into numeric Internet addresses
+			i.e.) www.oreilly.com to 208.201.239.101
+		* Some computers, especially servers, have fixed addresses while others, especially clients on local area networks and wireless connections, receive a different address every time they boot up, often provided by a DHCP (Dynamic Host Configuration Protocol) server
+		* ...which means IP addresss may change over time, so don't write any code that relies on a system having the same IP address
+		* Non-routable addresses are useful for building private networks that can't be seen on the Internet
+		* Local loopback address always point to the local computer, no matter which computer you're running on (IPv4 addresses beginning with 127)
+		* Broadcast addresses use the same number for each of the four bytes and packets sent to this address are received by all nodes on the local network
+	- Ports
+		* Ports allow multiple things to be performed at once
+		* Each computer with an IP address has several thousand logical ports, which are purely abstractions in the computer's memory and don't represent anything physical 
+		* Each port is identified by a number between 1 and 65535 and can be allocated to a particular service 
+		* When data is sent to a web server on a particular machine at a particular IP address, it is also sent to a particular port on that machine
+		* TCP and UDP protocols use ports to map incoming data to a particular process running on a computer
+
+[Basic understanding of network routing mechanisms]
+	- NAT: Network Address Translation 
+		* Because of the scarcity of and demand for raw IP addresses, most networks today use NAT
+		* The router watches outgoing and incoming connections and adjusts the addresses in the IP packets. For an outgoing packet, it changes the source address to the router's external address. For an incoming packet, it changes the destination address to one of the local addresses (the external and internal addresses may not be the same)
+	- Firewalls
+		* Firewall is a point of access (hardware and software that sit between the Internet and the local network) to a local network that checks all traffic into or out of that access point 
+		* Responsible for inspecting each packet that passes into or out of its network interface and accepting it or rejecting it according to a set of rules
+		* Fireware is often part of the router that connects the local network to the broader Internet and may perform other tasks, such as NAT OR it may be a separate machine
+		* Operate at the transport or internet layer  
+	- Proxy Servers
+		* Related to firewalls: if a firewall prevents hosts on a network, a proxy server can act as a go-between
+		* Security advantage: external hosts only find out about the proxy server and do not learn the names and IP addresses of the internal machines, making it more difficult to hack into internal systems
+		* Operate at the application layer 
+		* Also used to implement local caching: checks to see if file is in its cache, if true, proxy serves the file from the cache rather than from the Internet, reducing load time and improve response time
+		* Disadvantage: inability to cope with all but a few protocols: limits the effectiveness of custom protocols
+	- Client/Server Model
+		* Client/Server application typically stores large quantities of data on an expensive, high-powered server or cloud of servers while most of the program logic and UI is handled by client software running on relatively cheap personal computers 
+		* In 2013, the most popular client/server system on the Internet is the Web: data is stored on the web server and is sent out to the clients that request it 
+		* Not all applications fit easily into a client/server model, such as peer-to-peer (games, telephone), where both players will send data back and forth roughly equally
+
+
+
+
+
+
+
