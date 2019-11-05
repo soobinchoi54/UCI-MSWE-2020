@@ -58,7 +58,7 @@
 	int min = Arrays.stream(tab).min().getAsInt();
 
 	// Max in an Array of Primitives
-	int max = ARrays.stream(tab).max().getAsInt();
+	int max = Arrays.stream(tab).max().getAsInt();
 
 	// Retrieve Character in a String
 	char c = string.charAt(i);
@@ -76,6 +76,8 @@
 
 		// Size of a HashSet
 		set.size();
+
+		//
 
 // BOOLEAN
 

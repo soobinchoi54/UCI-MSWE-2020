@@ -49,7 +49,7 @@ Conceptual knowledge
 		* Domain Name System (DNS) was developed to translate hostnames that humans can remember into numeric Internet addresses
 			i.e.) www.oreilly.com to 208.201.239.101
 		* Some computers, especially servers, have fixed addresses while others, especially clients on local area networks and wireless connections, receive a different address every time they boot up, often provided by a DHCP (Dynamic Host Configuration Protocol) server
-		* ...which means IP addresss may change over time, so don't write any code that relies on a system having the same IP address
+		* ...which means IP address may change over time, so don't write any code that relies on a system having the same IP address
 		* Non-routable addresses are useful for building private networks that can't be seen on the Internet
 		* Local loopback address always point to the local computer, no matter which computer you're running on (IPv4 addresses beginning with 127)
 		* Broadcast addresses use the same number for each of the four bytes and packets sent to this address are received by all nodes on the local network

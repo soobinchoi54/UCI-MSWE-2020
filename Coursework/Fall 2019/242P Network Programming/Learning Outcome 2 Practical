@@ -1,9 +1,117 @@
-SWE 242P Network Programming 
+// SWE 242P Network Programming 
 
-Learning Outcome 2 
+// Learning Outcome 2 
 
-Practical knowledge in Java
+// Practical knowledge in Java
 
-[How to instantiate different types of input/output streams in Java]
-[How to use input/output streams in Java to read/write to a file]
-[How to use the concurrency mechanisms in the construction of reader and writer functionality]
+// [How to instantiate different types of input/output streams in Java]
+// [How to use input/output streams in Java to read/write to a file]
+
+	// Byte Streams 
+	// Represents a low-level I/O that you should avoid
+	import java.io.FileInputStream;
+	import java.io.FileOutputStream;
+	import java.io.IOException;
+
+	public class CopyBytes {
+	    public static void main(String[] args) throws IOException {
+
+	        FileInputStream in = null;
+	        FileOutputStream out = null;
+
+	        try {
+	            in = new FileInputStream("xanadu.txt"); // Uses FileInputStream for CopyBytes
+	            out = new FileOutputStream("outagain.txt");
+	            int c;
+
+	            while ((c = in.read()) != -1) {
+	                out.write(c);
+	            }
+	        } finally {
+	            if (in != null) {
+	                in.close();
+	            }
+	            if (out != null) {
+	                out.close();
+	            }
+	        }
+	    }
+	} 
+
+	// Character Streams 
+	// Similar to CopyBytes, main difference is that it uses FileReader and FileWriter for I/O
+	import java.io.FileReader;
+	import java.io.FileWriter;
+	import java.io.IOException;
+
+	public class CopyCharacters {
+	    public static void main(String[] args) throws IOException {
+
+	        FileReader inputStream = null;
+	        FileWriter outputStream = null;
+
+	        try {
+	            inputStream = new FileReader("xanadu.txt"); // Uses FileRead for CopyCharacters
+	            outputStream = new FileWriter("characteroutput.txt");
+
+	            int c;
+	            while ((c = inputStream.read()) != -1) {
+	                outputStream.write(c);
+	            }
+	        } finally {
+	            if (inputStream != null) {
+	                inputStream.close();
+	            }
+	            if (outputStream != null) {
+	                outputStream.close();
+	            }
+	        }
+	    }
+	}
+
+	// Line Oriented I/O
+	import java.io.FileReader;
+	import java.io.FileWriter;
+	import java.io.BufferedReader;
+	import java.io.PrintWriter;
+	import java.io.IOException;
+
+	public class CopyLines {
+	    public static void main(String[] args) throws IOException {
+
+	        BufferedReader inputStream = null; // Used for strings with a line terminator at the end
+	        PrintWriter outputStream = null;
+
+	        try {
+	            inputStream = new BufferedReader(new FileReader("xanadu.txt"));
+	            outputStream = new PrintWriter(new FileWriter("characteroutput.txt"));
+
+	            String l;
+	            while ((l = inputStream.readLine()) != null) {
+	                outputStream.println(l);
+	            }
+	        } finally {
+	            if (inputStream != null) {
+	                inputStream.close();
+	            }
+	            if (outputStream != null) {
+	                outputStream.close();
+	            }
+	        }
+	    }
+	}
+
+	// Buffered Streams 
+	// Buffered input streams read data from a memory area known as a buffer;
+	// the native input API is called only when the buffer is empty
+	// BufferedInputStream and BufferedOutputStream create buffered byte streams
+	// while BufferedReader and BufferedWriter create buffered character streams
+	// Use flush to to write out a buffer at critical points, without waiting for it to fill 
+	inputStream = new BufferedReader(new FileReader("xanadu.txt"));
+	outputStream = new BufferedWriter(new FileWriter("characteroutput.txt"));
+
+	// Scanning and Formatting 
+	
+
+
+// [How to use the concurrency mechanisms in the construction of reader and writer functionality]
