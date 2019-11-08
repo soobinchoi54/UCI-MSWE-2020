@@ -16,7 +16,7 @@ class HelloRunnable implements Runnable {
                 LocalTime time = LocalTime.now();
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
                 counter++;
-                System.out.println("Hello World! I'm thread " + " " + counter + ". The time is " + time.format(formatter) + ".");
+                System.out.println("Hello World! I'm thread " + counter + ". The time is " + time.format(formatter) + ".");
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 System.out.println();
@@ -49,7 +49,7 @@ class HelloRunnable implements Runnable {
                     i++;
                     break;
                 case "b":
-                    System.out.println("Stopping thread " + (char) (i + 65));
+                    System.out.println("Stopping thread");
                     stopThread();
                     break;
                 default:
