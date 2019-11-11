@@ -35,49 +35,47 @@ public class Server {
             System.out.println("      Listening on port " + PORT);
             while (true) {
                 connection = listener.accept();
-                handleConnection(directory, connection);
+                Scanner incoming;
+                PrintWriter outgoing;
+                String command = "      Failed to read command";
+                try {
+                    incoming = new Scanner(connection.getInputStream());
+                    outgoing = new PrintWriter(connection.getOutputStream());
+                    command = incoming.nextLine();
+                    if (command.equalsIgnoreCase("index")) {
+                        sleep(1000);
+                        sendFileList(directory, outgoing);
+                    } else if (command.toLowerCase().startsWith("get")) {
+                        sleep(1000);
+                        String fileName = command.substring(3).trim();
+                        System.out.println("OK    " + connection.getInetAddress()
+                                + " " + command);
+                        sendFileContent(fileName, directory, outgoing);
+                    } else {
+                        outgoing.println("ERROR command error");
+                        outgoing.flush();
+                    }
+                    sleep(1000);
+                    System.out.println("OK    " + connection.getInetAddress()
+                            + " " + command);
+                } catch (Exception ex) {
+                    sleep(1000);
+                    System.out.println("ERROR " + connection.getInetAddress()
+                            + " " + command + " " + ex);
+                } finally {
+                    try {
+                        // Explicitly close the socket in a finally block to release resources the socket holds
+                        connection.close();
+                    } catch (IOException ex) {
+                        System.out.println("      Error:  " + ex);
+                    }
+                }
             }
-        } catch (Exception e) {
-            System.out.println("      Error:  " + e);
+        } catch (Exception ex) {
+            System.out.println("      Error:  " + ex);
             return;
         }
 
-    }
-
-    private static void handleConnection(File directory, Socket connection) throws InterruptedException {
-        Scanner incoming;
-        PrintWriter outgoing;
-        String command = "      Failed to read command";
-        try {
-            incoming = new Scanner(connection.getInputStream());
-            outgoing = new PrintWriter(connection.getOutputStream());
-            command = incoming.nextLine();
-            if (command.equalsIgnoreCase("index")) {
-                sleep(1000);
-                sendFileList(directory, outgoing);
-            } else if (command.toLowerCase().startsWith("get")) {
-                sleep(1000);
-                String fileName = command.substring(3).trim();
-                System.out.println("OK    " + connection.getInetAddress()
-                        + " " + command);
-                sendFileContent(fileName, directory, outgoing);
-            } else {
-                outgoing.println("ERROR command error");
-                outgoing.flush();
-            }
-            sleep(1000);
-            System.out.println("OK    " + connection.getInetAddress()
-                    + " " + command);
-        } catch (Exception e) {
-            sleep(1000);
-            System.out.println("ERROR " + connection.getInetAddress()
-                    + " " + command + " " + e);
-        } finally {
-            try {
-                connection.close();
-            } catch (IOException e) {
-            }
-        }
     }
 
     private static void sendFileList(File directory, PrintWriter outgoing) throws Exception {

@@ -7,10 +7,10 @@ public class Client {
 
     public static void main(String[] args) {
 
-        String computer;
+        String host;
         Socket connection;
-        PrintWriter outgoing;
-        BufferedReader incoming;
+        PrintWriter outgoing; // returns OutputStream for writing data from other end of the socket
+        BufferedReader incoming; // call BufferedReader to return InputStream to read data from the socket
         String command;
 
         if (args.length == 0 || args.length > 2) {
@@ -19,7 +19,7 @@ public class Client {
             return;
         }
 
-        computer = args[0];
+        host = args[0];
 
         if (args.length == 1)
             command = "INDEX";
@@ -27,19 +27,20 @@ public class Client {
             command = "GET " + args[1];
 
         try {
-            connection = new Socket(computer, PORT);
+            connection = new Socket(host, PORT);
             incoming = new BufferedReader(
                     new InputStreamReader(connection.getInputStream()));
             outgoing = new PrintWriter(connection.getOutputStream());
             outgoing.println(command);
             outgoing.flush();
         } catch (Exception e) {
-            System.out.println("      Can't make connection to server at \"" + args[0]);
             System.out.println("      Error:  " + e);
+            System.out.println("      Can't make connection to server at \"" + args[0]);
             return;
         }
 
         try {
+            // If there is only 1 argument, retrieve file list
             if (args.length == 1) {
                 System.out.println("      File list from " + args[0] + ":");
                 while (true) {
@@ -51,17 +52,16 @@ public class Client {
             } else {
                 String message = incoming.readLine();
                 if (!message.equalsIgnoreCase("OK")) {
-                    System.out.println("      File not found");
+                    System.out.println("      File does not exist");
                     System.out.println("      Server message: \n" + "   " + message);
                     return;
                 }
-                PrintWriter fileOut;
                 File file = new File(args[1]);
                 if (file.exists()) {
                     System.out.println("      File with name already exists");
                     return;
                 }
-                fileOut = new PrintWriter(new FileWriter(args[1]));
+                PrintWriter fileOut = new PrintWriter(new FileWriter(args[1]));
                 while (true) {
                     String line = incoming.readLine();
                     if (line == null)
@@ -72,10 +72,11 @@ public class Client {
                     System.out.println("      Error");
                 }
             }
-        } catch (Exception e) {
-            System.out.println("      Error: " + e);
+        } catch (Exception ex) {
+            System.out.println("      Error: " + ex);
         } finally {
             try {
+                // Explicitly close the socket in a finally block to release resources the socket holds
                 connection.close();
             } catch (IOException e) {
             }
