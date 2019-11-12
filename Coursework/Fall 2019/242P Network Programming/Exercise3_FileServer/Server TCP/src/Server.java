@@ -3,8 +3,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Scanner;
 
-import static java.lang.Thread.sleep;
-
 public class Server {
 
     static final int PORT = 4444;
@@ -43,10 +41,8 @@ public class Server {
                     outgoing = new PrintWriter(connection.getOutputStream());
                     command = incoming.nextLine();
                     if (command.equalsIgnoreCase("index")) {
-                        sleep(1000);
                         sendFileList(directory, outgoing);
                     } else if (command.toLowerCase().startsWith("get")) {
-                        sleep(1000);
                         String fileName = command.substring(3).trim();
                         System.out.println("OK    " + connection.getInetAddress()
                                 + " " + command);
@@ -55,11 +51,9 @@ public class Server {
                         outgoing.println("ERROR command error");
                         outgoing.flush();
                     }
-                    sleep(1000);
                     System.out.println("OK    " + connection.getInetAddress()
                             + " " + command);
                 } catch (Exception ex) {
-                    sleep(1000);
                     System.out.println("ERROR " + connection.getInetAddress()
                             + " " + command + " " + ex);
                 } finally {
@@ -97,10 +91,8 @@ public class Server {
         } else {
             outgoing.println("OK");
             BufferedReader fileIn = new BufferedReader(new FileReader(file));
-            System.out.println("      File content:");
             while (true) {
                 String line = fileIn.readLine();
-                System.out.println("      " + line);
                 if (line == null)
                     break;
                 outgoing.println(line);

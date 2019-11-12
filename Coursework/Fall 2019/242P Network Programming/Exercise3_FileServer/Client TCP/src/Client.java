@@ -38,6 +38,7 @@ public class Client {
             System.out.println("      Can't make connection to server at \"" + args[0]);
             return;
         }
+        PrintWriter fileOut = null;
 
         try {
             // If there is only 1 argument, retrieve file list
@@ -51,35 +52,29 @@ public class Client {
                 }
             } else {
                 String message = incoming.readLine();
+                File file = new File(args[1]);
                 if (!message.equalsIgnoreCase("OK")) {
                     System.out.println("      File does not exist");
                     System.out.println("      Server message: \n" + "   " + message);
                     return;
-                }
-                File file = new File(args[1]);
-                if (file.exists()) {
+                } else if (file.exists()) {
                     System.out.println("      File with name already exists");
-                    return;
                 }
-                PrintWriter fileOut = new PrintWriter(new FileWriter(args[1]));
+//                fileOut = new PrintWriter(new FileWriter(args[1]));
+//                System.out.println(fileOut);
+                System.out.println("      File content:");
                 while (true) {
                     String line = incoming.readLine();
                     if (line == null)
                         break;
-                    fileOut.println(line);
-                }
-                if (fileOut.checkError()) {
-                    System.out.println("      Error");
+                    System.out.println("      " + line);
                 }
             }
-        } catch (Exception ex) {
-            System.out.println("      Error: " + ex);
-        } finally {
-            try {
-                // Explicitly close the socket in a finally block to release resources the socket holds
-                connection.close();
-            } catch (IOException e) {
-            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
         }
     }
 }
+
+
+
