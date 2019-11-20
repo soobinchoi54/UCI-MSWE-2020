@@ -18,6 +18,9 @@ public class StudentDB {
             case "1":
                 System.out.println("Adding new course...");
                 connection.newCourse();
+                System.out.println();
+                System.out.println("Adding new session...");
+                connection.courseSchedule();
                 break;
             case "2":
                 System.out.println("Adding new student...");
@@ -80,10 +83,7 @@ public class StudentDB {
             String createCourseInfoTB = "CREATE TABLE IF NOT EXISTS course_info " +
                     "(course_name VARCHAR(50) NOT NULL, " + // course_name doesn't have to be unique as one course may have multiple sessions
                     "course_id INT PRIMARY KEY AUTO_INCREMENT, " + // there may be more than one course_id per course as each course_id is one session
-                    "course_instructor VARCHAR(50) NOT NULL, " +
-                    "day VARCHAR(50) NOT NULL, " +
-                    "start_time TIME NOT NULL, " +
-                    "end_time TIME NOT NULL)";
+                    "course_instructor VARCHAR(50) NOT NULL)";
             stmt.executeUpdate(createCourseInfoTB);
 
             // Create a Table: Student Info
@@ -92,6 +92,15 @@ public class StudentDB {
                     "last_name VARCHAR(45) NOT NULL, " +
                     "student_id INT PRIMARY KEY AUTO_INCREMENT)"; // student_id PK
             stmt.executeUpdate(createStudentInfoTB);
+
+            // Create a Table: Course Schedule
+            String createCourseSchedule = "CREATE TABLE IF NOT EXISTS course_schedule " +
+                    "(course_id INT NOT NULL, " +
+                    "session_id INT PRIMARY KEY AUTO_INCREMENT, " +
+                    "day VARCHAR(50) NOT NULL, " +
+                    "start_time TIME NOT NULL, " +
+                    "end_time TIME NOT NULL)";
+            stmt.executeUpdate(createCourseSchedule);
 
             // Create a Table: Course to Student (linking table)
             String createCourseStudentTB = "CREATE TABLE IF NOT EXISTS course_student " +
@@ -137,6 +146,38 @@ public class StudentDB {
             String course_id = scan.nextLine();
             System.out.println("Enter course instructor:");
             String course_instructor = scan.nextLine().toLowerCase();
+//            System.out.println("This course is taught on Mon/Tue/Wed/Thu/Fri:");
+//            String day = scan.nextLine().toLowerCase();
+//            System.out.println("This course starts at (ex. 13:00):");
+//            String start_time = scan.nextLine();
+//            System.out.println("This course ends at (ex. 13:00):");
+//            String end_time = scan.nextLine();
+            // Select Database and Insert Values
+            String useDB = "USE Student_Database;";
+            stmt.executeUpdate(useDB);
+            String addCourse = "INSERT INTO course_info " +
+                    "VALUES ('" + course_name + "', " + course_id + ", '" + course_instructor + "')";
+            // Execute Update
+            stmt.executeUpdate(addCourse);
+            // Display Course Info
+            System.out.println("Course Info: " + course_name + " | " + course_id + " | " + course_instructor);
+            System.out.println("COURSE ADDED TO CATALOG");
+        } catch (Exception e) {
+            System.out.println("Error: This course already exists in the catalog");
+            // e.printStackTrace();
+        }
+    }
+
+    private void courseSchedule() {
+        Statement stmt;
+        ResultSet rs;
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            Connection connect = DriverManager.getConnection(
+                    "jdbc:mysql://127.0.0.1?serverTimezone=GMT", "root", "Tnqls)530");
+            stmt = connect.createStatement();
+            System.out.println("Enter course number:");
+            String course_id = scan.nextLine();
             System.out.println("This course is taught on Mon/Tue/Wed/Thu/Fri:");
             String day = scan.nextLine().toLowerCase();
             System.out.println("This course starts at (ex. 13:00):");
@@ -146,14 +187,23 @@ public class StudentDB {
             // Select Database and Insert Values
             String useDB = "USE Student_Database;";
             stmt.executeUpdate(useDB);
-            String addCourse = "INSERT INTO course_info " +
-                    "VALUES ('" + course_name + "', " + course_id + ", '" + course_instructor + "', '" + day + "', '" + start_time + "', '" + end_time + "')";
+            String addCourseSchedule = "INSERT INTO course_schedule " +
+                    "VALUES (" + course_id + ", DEFAULT, '" + day + "', '" + start_time + "', '" + end_time + "')";
             // Execute Update
-            stmt.executeUpdate(addCourse);
-            // Display Course Info
-            System.out.println("Course Info: " + course_name + " | " + course_id + " | " + course_instructor + " | " + day + " | " + start_time + " | " + end_time);
-            System.out.println("COURSE ADDED TO CATALOG");
-        } catch (Exception e) {
+            stmt.executeUpdate(addCourseSchedule);
+            // Query Session ID for Display
+            String querySessionID = "SELECT session_id FROM course_schedule WHERE course_id = '" + course_id + "'";
+            rs = stmt.executeQuery(querySessionID);
+            int session_id = 0;
+            if (rs.next()) {
+                session_id = rs.getInt("session_id");
+            }
+            System.out.println("New Session: " + course_id + " | " + session_id + " | " + day + " | " + start_time + " | " + end_time + " ");
+            System.out.println("SESSION ADDED FOR COURSE");
+            rs.close();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -300,18 +350,18 @@ public class StudentDB {
             stmt.executeUpdate(useDB);
             // Query Student Schedule
             String querySchedule =
-                    "SELECT course_info.course_name, course_info.day, course_info.start_time, course_info.end_time " +
-                            "FROM course_info " +
-                            "JOIN course_student ON course_info.course_id = course_student.course_id " +
+                    "SELECT course_schedule.course_id, course_schedule.day, course_schedule.start_time, course_schedule.end_time " +
+                            "FROM course_schedule " +
+                            "JOIN course_student ON course_schedule.course_id = course_student.course_id " +
                             "WHERE course_student.student_id =" + student_id +
-                            " AND course_info.day = '" + day + "'";
+                            " AND course_schedule.day = '" + day + "'";
             rs = stmt.executeQuery(querySchedule);
             System.out.println("Student schedule for " + day + ":");
             while (rs.next()) {
-                String course_name = rs.getString("course_name");
+                String course_id = rs.getString("course_id");
                 String start_time = rs.getString("start_time");
                 String end_time = rs.getString("end_time");
-                System.out.println("Course Info: " + course_name + " [from " + start_time + " to " + end_time + "]");
+                System.out.println("Course Info: " + course_id + " [from " + start_time + " to " + end_time + "]");
             }
             rs.close();
         } catch (Exception e) {

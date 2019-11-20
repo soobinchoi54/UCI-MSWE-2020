@@ -19,6 +19,7 @@ public class Server {
         }
 
         directory = new File(args[0]);
+
         if (!directory.exists()) {
             System.out.println("      This directory does not exist");
             return;
@@ -40,10 +41,11 @@ public class Server {
                     incoming = new Scanner(connection.getInputStream());
                     outgoing = new PrintWriter(connection.getOutputStream());
                     command = incoming.nextLine();
+
                     if (command.equalsIgnoreCase("index")) {
                         sendFileList(directory, outgoing);
                     } else if (command.toLowerCase().startsWith("get")) {
-                        String fileName = command.substring(3).trim();
+                        String fileName = command;
                         System.out.println("OK    " + connection.getInetAddress()
                                 + " " + command);
                         sendFileContent(fileName, directory, outgoing);

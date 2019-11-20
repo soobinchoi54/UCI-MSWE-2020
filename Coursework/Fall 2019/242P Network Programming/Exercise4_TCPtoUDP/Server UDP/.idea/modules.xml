@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Exercise1_MultiThreadedHelloWorld.iml" filepath="$PROJECT_DIR$/Exercise1_MultiThreadedHelloWorld.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FS.iml" filepath="$PROJECT_DIR$/FS.iml" />
     </modules>
   </component>
 </project>
