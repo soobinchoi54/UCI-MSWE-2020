@@ -44,6 +44,7 @@ public class Client {
             // If there is only 1 argument, retrieve file list
             if (args.length == 1) {
                 System.out.println("      File list from " + args[0] + ":");
+                System.out.println("      ----");
                 while (true) {
                     String line = incoming.readLine();
                     if (line == null)
@@ -53,6 +54,7 @@ public class Client {
             } else {
                 String message = incoming.readLine();
                 File file = new File(args[1]);
+                outgoing.println(file);
                 if (!message.equalsIgnoreCase("OK")) {
                     System.out.println("      File does not exist");
                     return;

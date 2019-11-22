@@ -44,8 +44,10 @@ public class Server {
 
                     if (command.equalsIgnoreCase("index")) {
                         sendFileList(directory, outgoing);
+                        System.out.println("OK    " + connection.getInetAddress()
+                                + " " + command);
                     } else if (command.toLowerCase().startsWith("get")) {
-                        String fileName = command;
+                        String fileName = command.substring(3).trim();
                         System.out.println("OK    " + connection.getInetAddress()
                                 + " " + command);
                         sendFileContent(fileName, directory, outgoing);
@@ -53,8 +55,8 @@ public class Server {
                         outgoing.println("ERROR command error");
                         outgoing.flush();
                     }
-                    System.out.println("OK    " + connection.getInetAddress()
-                            + " " + command);
+//                    System.out.println("OK    " + connection.getInetAddress()
+//                            + " " + command);
                 } catch (Exception ex) {
                     System.out.println("ERROR " + connection.getInetAddress()
                             + " " + command + " " + ex);
@@ -77,7 +79,7 @@ public class Server {
     private static void sendFileList(File directory, PrintWriter outgoing) throws Exception {
         String[] fileList = directory.list();
         for (int i = 0; i < fileList.length; i++)
-            outgoing.println(fileList[i]);
+            outgoing.println(i + ". " + fileList[i]);
         outgoing.flush();
         outgoing.close();
         if (outgoing.checkError())
@@ -90,6 +92,7 @@ public class Server {
         if ((!file.exists()) || file.isDirectory()) {
             outgoing.println("ERROR");
             System.out.println("ERROR");
+            System.out.println("      File does not exist");
         } else {
             outgoing.println("OK");
             BufferedReader fileIn = new BufferedReader(new FileReader(file));
