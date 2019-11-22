@@ -14,7 +14,7 @@ public class Server {
         Socket connection;
 
         if (args.length == 0) {
-            System.out.println("Usage:  java FileServer <directory>");
+            System.out.println("Usage:  java Server <directory>");
             return;
         }
 
@@ -77,7 +77,7 @@ public class Server {
     private static void sendFileList(File directory, PrintWriter outgoing) throws Exception {
         String[] fileList = directory.list();
         for (int i = 0; i < fileList.length; i++)
-            outgoing.println(i + ". " + fileList[i]);
+            outgoing.println(fileList[i]);
         outgoing.flush();
         outgoing.close();
         if (outgoing.checkError())

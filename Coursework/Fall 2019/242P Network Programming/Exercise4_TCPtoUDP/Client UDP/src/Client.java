@@ -45,12 +45,15 @@ public class Client {
 //                    String requestResult = new String(sendPacket.getData(), 0, sendPacket.getLength());
 //                    System.out.println("HERE IS " + requestResult);
                     System.out.println("        File list from " + args[0] + ":");
+                    System.out.println("        ---");
+                    int i = 0;
                     while (true) {
                         byte[] fileName = new byte[1024];
                         receivePacket = new DatagramPacket(fileName, fileName.length);
                         socket.receive(receivePacket);
                         String result = new String(receivePacket.getData(), 0, receivePacket.getLength());
-                        System.out.println("        " + result);
+                        System.out.println("        " + i + ". " + result);
+                        i++;
                     }
                 } else if (args[1] != null) {
                     File file = new File(args[1]);
@@ -68,8 +71,15 @@ public class Client {
                             String result = new String(receivePacket.getData(), 0, receivePacket.getLength());
                             System.out.println("        " + result);
                         }
+                    } else {
+                        byte[] eMessage = new byte[1024];
+                        receivePacket = new DatagramPacket(eMessage, eMessage.length);
+                        socket.receive(receivePacket);
+                        String msg = new String(receivePacket.getData(), 0, receivePacket.getLength());
+                        System.out.println(msg);
                     }
                 }
+                socket.close();
                 return;
             } catch (Exception e) {
                 System.out.println("        ERROR");

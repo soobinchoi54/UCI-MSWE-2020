@@ -14,7 +14,7 @@ public class Server {
     public static void main(String[] args) throws IOException {
 
         if (args.length == 0) {
-            System.out.println("Usage:  java FileServer <directory>");
+            System.out.println("Usage:  java Server <directory>");
             return;
         }
 
@@ -63,17 +63,27 @@ public class Server {
                                 + " " + command);
                     } else if (command.toLowerCase().startsWith("get")) {
                         String fileName = command.substring(3).trim();
-                        System.out.println("        Reading content of " + fileName);
-                        System.out.println("OK      " + clientAddress
-                                + " " + command);
-                        BufferedReader fileIn = new BufferedReader(new FileReader(fileName));
-                        String line;
-                        while ((line = fileIn.readLine()) != null) {
-                            buffer = line.getBytes();
-                            DatagramPacket fileContent = new DatagramPacket(buffer, buffer.length, clientAddress, clientPort);
-                            socket.send(fileContent);
+                        File file = new File(fileName);
+                        if (file.exists()) {
+                            // System.out.println(file.exists());
+                            System.out.println("        Reading content of " + fileName);
+                            BufferedReader fileIn = new BufferedReader(new FileReader(fileName));
+                            String line;
+                            while ((line = fileIn.readLine()) != null) {
+                                buffer = line.getBytes();
+                                DatagramPacket fileContent = new DatagramPacket(buffer, buffer.length, clientAddress, clientPort);
+                                socket.send(fileContent);
+                            }
+                            fileIn.close();
+                            System.out.println("OK      " + clientAddress
+                                    + " " + command);
+                        } else {
+                            System.out.println("        " + fileName + " does not exist");
+                            String err = "        File does not exist";
+                            byte[] ebuff = err.getBytes();
+                            DatagramPacket eMessage = new DatagramPacket(ebuff, ebuff.length, clientAddress, clientPort);
+                            socket.send(eMessage);
                         }
-                        fileIn.close();
                     }
                 } catch (Exception e) {
                     System.out.println("        ERROR");

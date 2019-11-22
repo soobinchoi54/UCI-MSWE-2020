@@ -14,8 +14,8 @@ public class Client {
         String command;
 
         if (args.length == 0 || args.length > 2) {
-            System.out.println("Usage:  java Client <server>");
-            System.out.println("    or  java Client <server> <file>");
+            System.out.println("Usage:  java Client localhost");
+            System.out.println("    or  java Client localhost <file>");
             return;
         }
 
@@ -55,7 +55,6 @@ public class Client {
                 File file = new File(args[1]);
                 if (!message.equalsIgnoreCase("OK")) {
                     System.out.println("      File does not exist");
-                    System.out.println("      Server message: \n" + "   " + message);
                     return;
                 } else if (file.exists()) {
                     System.out.println("      File with name already exists");
