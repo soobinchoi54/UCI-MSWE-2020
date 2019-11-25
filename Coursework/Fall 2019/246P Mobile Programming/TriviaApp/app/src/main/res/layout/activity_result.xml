@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    tools:context=".ResultActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp">
+<!--        <TextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:id="@+id/questionNumber"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:text="Question No: "/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/score"
+            android:layout_alignParentRight="true"
+            android:text="Score: "/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/result"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="@string/result"
+        android:layout_gravity="center"
+        android:textSize="20sp"/>
+
+    <Button
+        android:id="@+id/submit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:text="@string/shareResult"/>
+
+    <TextView
+        android:id="@+id/passes"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Passed: "
+        android:layout_gravity = "center"
+        android:textSize="15sp" />
+    <TextView
+        android:id="@+id/fails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Failed: "
+        android:layout_gravity = "center"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/returnMC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:text="Return" />
+
+</LinearLayout>

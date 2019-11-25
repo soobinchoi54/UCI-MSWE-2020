@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">TriviaApp</string>
+    <string name="submit">Submit</string>
+    <string name="textView">Select your answer from the list</string>
+    <string name="question1">Which color is NOT a primary color?</string>
+    <string name="question2">What color does K represent in CMYK?</string>
+    <string name="result">Your Score:</string>
+    <string name="shareResult">Share Result</string>
+    <string name="chooser">Share result via...</string>
+    <string name="hint">Type your answer here</string>
+    <string name="choice1">red</string>
+    <string name="choice2">green</string>
+    <string name="choice3">blue</string>
+    <string name="choice4">yellow</string>
+
+    <string-array name="mcOptions">
+        <item>red</item>
+        <item>green</item>
+        <item>blue</item>
+        <item>yellow</item>
+    </string-array>
+
+</resources>

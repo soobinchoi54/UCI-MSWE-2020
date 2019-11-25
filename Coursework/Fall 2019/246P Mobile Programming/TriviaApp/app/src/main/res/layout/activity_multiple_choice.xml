@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    android:orientation="vertical"
+    tools:context=".MultipleChoiceActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:padding="8dp">
+<!--        <TextView-->
+<!--            android:id="@+id/qNumber"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentLeft="true"-->
+<!--            android:text="Question No: "-->
+<!--            android:textSize="15sp"/>-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/score"
+            android:layout_alignParentRight="true"
+            android:text="Score: "
+            android:textSize="15sp"/>
+    </RelativeLayout>
+
+
+    <TextView
+        android:id="@+id/questionLabel1"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:text="@string/question1"
+        android:layout_gravity="center"
+        android:textSize="20sp"/>
+
+<!--    <Spinner-->
+<!--        android:id="@+id/color"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="40dp"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:entries="@array/mcOptions"/>-->
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="red"
+        android:background="#0091EA"
+        android:textColor="#ffff"
+        android:padding="8dp"
+        android:id="@+id/choice1"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="green"
+        android:background="#0091EA"
+        android:textColor="#ffff"
+        android:padding="8dp"
+        android:id="@+id/choice2"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="blue"
+        android:background="#0091EA"
+        android:textColor="#ffff"
+        android:padding="8dp"
+        android:id="@+id/choice3"/>
+
+    <Button
+        android:id="@+id/choice4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#0091EA"
+        android:padding="8dp"
+        android:text="yellow"
+        android:textColor="#ffff" />
+
+<!--    <Button-->
+<!--        android:id="@+id/submit"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:layout_margin="16dp"-->
+<!--        android:text="@string/submit"-->
+<!--        android:onClick="onClickNextQuestion"/>-->
+
+    <TextView
+        android:id="@+id/mcOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_margin="16dp"
+        android:text="@string/textView"/>
+
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Chances: "-->
+<!--        android:textSize="15sp" />-->
+
+</LinearLayout>
