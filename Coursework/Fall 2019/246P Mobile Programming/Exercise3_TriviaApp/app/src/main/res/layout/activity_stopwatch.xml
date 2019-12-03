@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".StopwatchActivity">
+
+    <TextView
+        android:id="@+id/time_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:textAppearance="@android:style/TextAppearance.Large"
+        android:textSize="56sp" />
+
+    <EditText
+        android:id="@+id/edit_timer_mc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Time limit in secs"
+        android:layout_gravity="center_horizontal"
+        android:inputType="number"
+        android:maxLength="4" />
+
+    <EditText
+        android:id="@+id/edit_timer_f"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Time limit in secs"
+        android:layout_gravity="center_horizontal"
+        android:inputType="number"
+        android:maxLength="4" />
+
+    <Switch
+        android:id="@+id/mc_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:switchMinWidth="56dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:text="Enable timer for Section 1: "
+        android:checked="true" />
+
+    <Switch
+        android:id="@+id/f_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:switchMinWidth="56dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:text="Enable timer for Section 2: "
+        android:checked="true" />
+
+    <Switch
+        android:id="@+id/toggle_default_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:switchMinWidth="56dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="20dp"
+        android:padding="10dp"
+        android:text="Toggle Button Style: "
+        android:checked="true" />
+    
+    <FrameLayout
+        android:id="@android:id/tabcontent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        android:padding="5dp" >
+
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="onClickStart"
+            android:text="@string/start" />
+
+        <ImageButton
+            android:id="@+id/start_imageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:onClick="onClickStart"
+            android:visibility="invisible"
+            android:src="@drawable/ic_launcher_background" />
+
+    </FrameLayout>
+
+
+</LinearLayout>

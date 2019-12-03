@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">To Do List App</string>
+    <string name="item_title">Title</string>
+    <string name="item_description">Description</string>
+
+    <string-array name="options"></string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
