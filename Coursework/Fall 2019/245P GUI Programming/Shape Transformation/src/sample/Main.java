@@ -36,11 +36,14 @@ import java.text.NumberFormat;
 
 public class Main extends Application implements KeyListener {
 
+    private Button rButton;
+    private Button lButton;
     private int angle = 0;
-    private boolean preserveRatio = true;
-    private static double INIT_VALUE = 1;
     private int X = 0;
     private int Y = 0;
+    private TextField textField;
+    private boolean preserveRatio = true;
+    private double INIT_VALUE = 1;
 
     @Override
     public void init() {
@@ -74,8 +77,8 @@ public class Main extends Application implements KeyListener {
         Image rightImage = new Image(rightFile);
         ImageView rightImageView = new ImageView(rightImage);
 
-        Button rButton = new Button("Rotate Right", rightImageView);
-        Button lButton = new Button("Rotate Left", leftImageView);
+        rButton = new Button("Rotate Right", rightImageView);
+        lButton = new Button("Rotate Left", leftImageView);
 
         rightImageView.setPreserveRatio(preserveRatio);
         leftImageView.setPreserveRatio(preserveRatio);
@@ -96,7 +99,7 @@ public class Main extends Application implements KeyListener {
         sliderScale.setValue(INIT_VALUE);
         sliderScale.setMinWidth(500);
 
-        TextField textField = new TextField();
+        textField = new TextField();
         textField.setPrefSize(50,20);
         textField.setText(Double.toString(INIT_VALUE));
         textField.textProperty().bindBidirectional(sliderScale.valueProperty(), NumberFormat.getNumberInstance());
@@ -121,6 +124,8 @@ public class Main extends Application implements KeyListener {
 
         rb.getChildren().addAll(rbGreen, rbRed, rbBlue, rbYellow, rbViolet);
 
+
+
         tg.selectedToggleProperty().addListener(new ChangeListener<Toggle>() {
             @Override
             public void changed(ObservableValue<? extends Toggle> observableValue, Toggle toggle, Toggle t1) {
@@ -141,8 +146,6 @@ public class Main extends Application implements KeyListener {
                     polygon.setFill(Color.VIOLET);
                 }
                 stack.requestFocus();
-
-
             }
         });
 
@@ -155,7 +158,6 @@ public class Main extends Application implements KeyListener {
                 stack.setRotate(angle + 90);
                 angle += 90;
                 stack.requestFocus();
-
             }
         });
 
@@ -166,7 +168,6 @@ public class Main extends Application implements KeyListener {
                 stack.setRotate(angle - 90);
                 angle -= 90;
                 stack.requestFocus();
-
             }
         });
 
@@ -199,7 +200,6 @@ public class Main extends Application implements KeyListener {
                     keyEvent.consume();
                 }
                 stack.requestFocus();
-
             }
         });
 

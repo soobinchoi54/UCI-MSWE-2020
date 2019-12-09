@@ -6,4 +6,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <BorderPane fx:controller="sample.Controller"
             xmlns:fx="http://javafx.com/fxml">
+
+
 </BorderPane>

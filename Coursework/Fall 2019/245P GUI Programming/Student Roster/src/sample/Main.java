@@ -61,7 +61,7 @@ public class Main extends Application {
     // PIE CHART
     private ObservableList<PieChart.Data> pieMajor = FXCollections.observableArrayList();
     private int cs = 0, swe = 0, ce = 0;
-    private PieChart chartMajor;
+    private PieChart chartMajor = new PieChart();
     // BAR GRAPH
     private ObservableList<XYChart.Series<String, Double>> barGrade = FXCollections.observableArrayList();
     private int A = 0, B = 0, C = 0, D = 0, F = 0;
@@ -131,37 +131,36 @@ public class Main extends Application {
          Initializers for tab and stats pane
          */
 
-        TabPane tabpane = new TabPane();
-        Tab tab1 = new Tab("Roster");
-        Tab tab2 = new Tab("Stats");
+        TabPane tabpane = new TabPane(); // DONE
+        Tab tab1 = new Tab("Roster"); // DONE
+        Tab tab2 = new Tab("Stats"); // DONE
 
-        tabpane.getTabs().add(tab1);
-        tabpane.getTabs().add(tab2);
-
+        tabpane.getTabs().add(tab1); // DONE
+        tabpane.getTabs().add(tab2); // DONE
 
         Tab selectedTab = tabpane.getSelectionModel().getSelectedItem();
 
-        Menu menu = new Menu("File");
+        Menu menu = new Menu("File"); // DONE
         MenuItem newFile = new MenuItem("New");
         MenuItem openFile = new MenuItem("Open");
         MenuItem saveFile = new MenuItem("Save");
         MenuItem saveAsFile = new MenuItem("Save As");
         MenuItem closeFile = new MenuItem("Close");
         MenuItem exitFile = new MenuItem("Exit");
-        MenuBar mb = new MenuBar();
+        MenuBar mb = new MenuBar(); // DONE
         menu.getItems().addAll(newFile, openFile, saveFile, saveAsFile, closeFile, exitFile);
         mb.getMenus().add(menu);
 
         VBox fieldBox = new VBox(5); // root
-        VBox root = new VBox(5);
-        VBox menuBox = new VBox(mb);
+        VBox root = new VBox(5); // DONE
+        VBox menuBox = new VBox(mb); // DONE
         HBox box = new HBox(5);
         HBox majorgradeBox = new HBox(5);
         HBox gradoptionBox = new HBox(5);
         HBox honorstatusBox = new HBox(5);
         HBox noteimageBox = new HBox(5);
-        ScrollPane sp = new ScrollPane();
-        tab1.setContent(root);
+        ScrollPane sp = new ScrollPane(); // DONE
+        tab1.setContent(root); // DONE
 
         table.setItems(students);
         table.setEditable(true);
@@ -250,6 +249,14 @@ public class Main extends Application {
         columnStatus.setMinWidth(100);
         columnStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
         columnStatus.setCellFactory(tc -> new CheckBoxTableCell<>());
+        columnHonorStatus.setCellFactory(TextFieldTableCell.forTableColumn());
+        columnHonorStatus.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
+            t.getRowValue().setHonorStatus(t.getNewValue());
+            student = table.getSelectionModel().getSelectedItem();
+            if (student.getStatus() == true) {
+                cbStatus.isSelected();
+            }
+        });
 
         // notes
         TableColumn<Student, String> columnNotes = new TableColumn<>("Notes");
@@ -266,19 +273,6 @@ public class Main extends Application {
         TableColumn<Student, Image> columnImages = new TableColumn<>("Img");
         columnImages.setMinWidth(100);
         columnImages.setCellValueFactory(new PropertyValueFactory<>("img"));
-//        img = new Image(student.getImg());
-//        columnImages.setGraphic(new ImageView(img));
-//        columnImages.setPrefWidth(70);
-
-//        columnImages.setCellFactory(TextFieldTableCell.forTableColumn());
-//        columnImages.setOnEditCommit((TableColumn.CellEditEvent<Student, String> t) -> {
-//            t.getRowValue().setStudentID(t.getNewValue());
-//        });
-
-//        TableColumn<Student, Boolean> columnCB = new TableColumn<> ("Honor Status");
-//        columnCB.setCellValueFactory(new PropertyValueFactory<>( "honor status" ));
-//        columnCB.setCellFactory(tc -> new CheckBoxTableCell<>());
-
 
         getMajorData();
 
@@ -287,6 +281,7 @@ public class Main extends Application {
         c.setName("C");
         d.setName("D");
         f.setName("F");
+
         getGradeData();
 
         HBox stats = new HBox(5);
@@ -296,7 +291,7 @@ public class Main extends Application {
 
         // ObservableList<XYChart.Series<String, Double>>
 
-        table.prefWidthProperty().bind(sp.widthProperty());
+        table.prefWidthProperty().bind(sp.widthProperty()); // DONE
         table.getColumns().add(columnID);
         table.getSortOrder().add(columnID);
         table.getColumns().add(columnLastName);
@@ -310,12 +305,12 @@ public class Main extends Application {
         table.getColumns().add(columnNotes);
         table.getColumns().add(columnImages);
         table.getColumns().add(columnStatus);
-        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
-        tabpane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
+        table.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY); // DONE
+        tabpane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE); // DONE
 
-        Circle circle = new Circle();
-        circle.setRadius(50);
-        circle.setFill(Color.PALEVIOLETRED);
+        Circle circle = new Circle(); // DONE
+        circle.setRadius(50); // DONE
+        circle.setFill(Color.PALEVIOLETRED); // DONE
 
         Button addButton = new Button("Add New Student");
         Button deleteButton = new Button("Delete Student");
@@ -333,11 +328,11 @@ public class Main extends Application {
         Text lblStatus = new Text("Honor Status");
         Text lblNotes = new Text("Notes: ");
 
-        textID = new TextField();
-        textLastName = new TextField();
-        textFirstName = new TextField();
+        textID = new TextField(); // DONE
+        textLastName = new TextField(); // DONE
+        textFirstName = new TextField(); // DONE
 
-        String[] major = new String[]{
+        String[] major = new String[]{ // DONE
                 "Computer Science",
                 "Software Engineering",
                 "Computer Engineering"
@@ -349,41 +344,41 @@ public class Main extends Application {
                 "C",
                 "D",
                 "F"
-        };
+        }; // DONE
 
-        listMajor = new ComboBox(FXCollections.observableArrayList(major));
-        listGrade = new ComboBox(FXCollections.observableArrayList(grade));
+        listMajor = new ComboBox(FXCollections.observableArrayList(major)); // DONE
+        listGrade = new ComboBox(FXCollections.observableArrayList(grade)); // DONE
 
-        ToggleGroup tgGO = new ToggleGroup();
-        rbGrade = new RadioButton("Letter Grade");
-        rbNoGrade = new RadioButton("Pass/Fail");
+        ToggleGroup tgGO = new ToggleGroup(); // DONE
+        rbGrade = new RadioButton("Letter Grade"); // DONE
+        rbNoGrade = new RadioButton("Pass/Fail"); // DONE
 
-        ToggleGroup tgHS = new ToggleGroup();
-        rbHonor = new RadioButton("Honor");
-        rbNonHonor = new RadioButton("Non-Honor");
+        ToggleGroup tgHS = new ToggleGroup(); // DONE
+        rbHonor = new RadioButton("Honor"); // DONE
+        rbNonHonor = new RadioButton("Non-Honor"); // DONE
 
-        areaNotes = new TextArea();
+        areaNotes = new TextArea(); // DONE
 
         FileChooser chooseImg = new FileChooser();
-        Button imgButton = new Button("Upload Image");
-        imageView = new ImageView();
+        Button imgButton = new Button("Upload Image"); // DONE
+        imageView = new ImageView(); // DONE
 
-        imageView.maxWidth(100);
-        imageView.setPreserveRatio(true);
+        imageView.maxWidth(100); // DONE
+        imageView.setPreserveRatio(true); // DONE
 
         chooseImg.setInitialDirectory(new File("./Student_Roster/"));
 
-        rbGrade.setToggleGroup(tgGO);
-        rbNoGrade.setToggleGroup(tgGO);
+        rbGrade.setToggleGroup(tgGO); // DONE
+        rbNoGrade.setToggleGroup(tgGO); // DONE
 
-        rbHonor.setToggleGroup(tgHS);
-        rbNonHonor.setToggleGroup(tgHS);
+        rbHonor.setToggleGroup(tgHS); // DONE
+        rbNonHonor.setToggleGroup(tgHS); // DONE
 
-        cbStatus = new CheckBox("Honor");
+        cbStatus = new CheckBox("Honor"); // DONE
 
-        textID.setPrefSize(120, 30);
-        textFirstName.setPrefSize(120, 30);
-        textLastName.setPrefSize(120, 30);
+        textID.setPrefSize(120, 30); // DONE
+        textFirstName.setPrefSize(120, 30); // DONE
+        textLastName.setPrefSize(120, 30); // DONE
 
         addButton.setPrefSize(120, 30);
         deleteButton.setPrefSize(120, 30);
@@ -391,26 +386,26 @@ public class Main extends Application {
         nextButton.setPrefSize(120, 30);
         prevButton.setPrefSize(120, 30);
 
-        fieldBox.setPadding(new Insets(10, 10, 10, 10));
+        fieldBox.setPadding(new Insets(10, 10, 10, 10)); // DONE
         fieldBox.getChildren().add(menuBox);
-        fieldBox.getChildren().add(circle);
-        fieldBox.getChildren().add(lblID);
-        fieldBox.getChildren().add(textID);
-        fieldBox.getChildren().add(lblLastName);
-        fieldBox.getChildren().add(textLastName);
-        fieldBox.getChildren().add(lblFirstName);
-        fieldBox.getChildren().add(textFirstName);
-        majorgradeBox.getChildren().add(lblMajor);
-        majorgradeBox.getChildren().add(listMajor);
-        majorgradeBox.getChildren().add(lblGrade);
-        majorgradeBox.getChildren().add(listGrade);
-        gradoptionBox.getChildren().add(lblGradeOption);
-        gradoptionBox.getChildren().addAll(rbGrade, rbNoGrade);
-        honorstatusBox.getChildren().add(lblHonorStatus);
-        honorstatusBox.getChildren().addAll(rbHonor, rbNonHonor);
-        honorstatusBox.getChildren().addAll(lblStatus, cbStatus);
-        noteimageBox.getChildren().add(lblNotes);
-        noteimageBox.getChildren().add(areaNotes);
+        fieldBox.getChildren().add(circle); // DONE
+        fieldBox.getChildren().add(lblID); // DONE
+        fieldBox.getChildren().add(textID); // DONE
+        fieldBox.getChildren().add(lblLastName); // DONE
+        fieldBox.getChildren().add(textLastName); // DONE
+        fieldBox.getChildren().add(lblFirstName); // DONE
+        fieldBox.getChildren().add(textFirstName); // DONE
+        majorgradeBox.getChildren().add(lblMajor); // DONE
+        majorgradeBox.getChildren().add(listMajor); // DONE
+        majorgradeBox.getChildren().add(lblGrade); // DONE
+        majorgradeBox.getChildren().add(listGrade); // DONE
+        gradoptionBox.getChildren().add(lblGradeOption); // DONE
+        gradoptionBox.getChildren().addAll(rbGrade, rbNoGrade); // DONE
+        honorstatusBox.getChildren().add(lblHonorStatus); // DONE
+        honorstatusBox.getChildren().addAll(rbHonor, rbNonHonor); // DONE
+        honorstatusBox.getChildren().addAll(lblStatus, cbStatus); // DONE
+        noteimageBox.getChildren().add(lblNotes); // DONE
+        noteimageBox.getChildren().add(areaNotes); // DONE
         noteimageBox.getChildren().add(imgButton);
         noteimageBox.getChildren().add(imageView);
         fieldBox.getChildren().addAll(majorgradeBox, gradoptionBox, honorstatusBox, noteimageBox, box);
@@ -500,7 +495,6 @@ public class Main extends Application {
                 if (cbStatus.getText().equals("Honor")) {
                     cbStatus.isSelected();
                 }
-
             }
         });
 
@@ -1210,7 +1204,7 @@ public class Main extends Application {
     }
 
     private void addNewPieData() {
-        chartMajor = new PieChart();
+        // chartMajor = new PieChart();
         pieMajor = FXCollections.observableArrayList();
         pieMajor.addAll(new PieChart.Data("Computer Science", cs),
                 new PieChart.Data("Software Engineering", swe),
