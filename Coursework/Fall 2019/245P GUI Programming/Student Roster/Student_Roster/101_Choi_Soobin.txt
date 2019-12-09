@@ -1,0 +1,10 @@
+101
+Choi
+Soobin
+Computer Engineering
+A
+Pass/Fail
+Non-Honor
+true
+Notes
+file:/Users/soobinchoi/Desktop/Screen%20Shot%202019-10-27%20at%203.46.15%20PM.png
