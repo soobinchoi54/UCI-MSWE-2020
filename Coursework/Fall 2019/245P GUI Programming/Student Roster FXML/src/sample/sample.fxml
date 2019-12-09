@@ -1,0 +1,214 @@
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.GridPane?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.shape.Circle?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.collections.FXCollections?>
+<?import java.lang.String?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TableColumn?>
+<?import sample.Student?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.PieChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.NumberAxis?>
+<TabPane id="tabpane"
+         fx:controller="sample.Controller"
+         xmlns:fx="http://javafx.com/fxml"
+         tabClosingPolicy="UNAVAILABLE"
+         fx:id="tabpane">
+
+    <Tab id="tab1"
+         text="Roster"
+         fx:id="tab1">
+
+        <VBox id="root"
+              spacing="5"
+              fx:id="root">
+
+            <MenuBar id="mb"
+                     fx:id="mb">
+                <Menu id="menu"
+                      text="File"
+                      fx:id="menu">
+                    <MenuItem id="newFile" text="New" onAction="#handleNewFileAction" fx:id="newFile"/>
+                    <MenuItem id="openFile" text="Open" onAction="#handleOpenFileAction" fx:id="openFile"/>
+                    <MenuItem id="saveFile" text="Save" onAction="#handleSaveButtonAction" fx:id="saveFile"/>
+                    <MenuItem id="saveAsFile" text="Save As" onAction="#handleSaveAsButtonAction" fx:id="saveAsFile"/>
+                    <MenuItem id="closeFile" text="Close" onAction="#handleCloseButtonAction" fx:id="closeFile"/>
+                    <MenuItem id="exitFile" text="Exit" onAction="#handleExitButtonAction" fx:id="exitFile"/>
+                </Menu>
+            </MenuBar>
+
+            <ScrollPane id="sp" fx:id="sp">
+                <TableView id="table"
+                           editable="true"
+                           onMouseClicked="#handleTableEvent"
+                           fx:id="table">
+
+<!--                    <columns>-->
+<!--                        <TableColumn id="columnID" text="Student ID" minWidth="50" fx:id="columnID">-->
+<!--                        </TableColumn>-->
+<!--                    </columns>-->
+
+<!--                    <items>-->
+<!--                        <FXCollections fx:factory="observableArrayList">-->
+<!--                            <Student studentID="101" lastName="Choi" firstName="Soobin" major="Software Engineering" grade="A" gradeOption="Letter Grade" honorStatus="Non-Honor" status="false" notes="Notes for Soobin Choi"/>-->
+<!--                        </FXCollections>-->
+<!--                    </items>-->
+
+                </TableView>
+            </ScrollPane>
+
+            <VBox id="fieldBox"
+                  spacing="5"
+                  fx:id="fieldBox">
+                <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+                <Circle id="circle" radius="50" fill="palevioletred" fx:id="circle"/>
+                <Text id="lblID" text="Student ID" fx:id="lblID"/>
+                <TextField id="textID"
+                           prefHeight="30"
+                           prefWidth="120"
+                           fx:id="textID"/>
+                <Text id="lblLastName" text="Last Name" fx:id="lblLastName"/>
+                <TextField id="textLastName"
+                           prefHeight="30"
+                           prefWidth="120"
+                           fx:id="textLastName"/>
+                <Text id="lblFirstName" text="First Name" fx:id="lblFirstName"/>
+                <TextField id="textFirstName"
+                           prefHeight="30"
+                           prefWidth="120"
+                           fx:id="textFirstName"/>
+                <HBox id="majorGradeBox"
+                      spacing="5"
+                      fx:id="majorGradeBox">
+                    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+                    <Text id="lblMajor" text="Major" fx:id="lblMajor"/>
+
+                    <ComboBox id="listMajor"
+                              fx:id="listMajor">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList" fx:id="major">
+                                <String fx:value="Computer Science" />
+                                <String fx:value="Software Engineering" />
+                                <String fx:value="Computer Engineering" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+
+                    <Text id="lblGrade" text="Grade" fx:id="lblGrade"/>
+                    <ComboBox id="listGrade"
+                              fx:id="listGrade">
+                        <items>
+                            <FXCollections fx:factory="observableArrayList" fx:id="grade">
+                                <String fx:value="A" />
+                                <String fx:value="B" />
+                                <String fx:value="C" />
+                                <String fx:value="D" />
+                                <String fx:value="F" />
+                            </FXCollections>
+                        </items>
+                    </ComboBox>
+                </HBox>
+
+                <HBox id="gradeOptionBox"
+                      spacing="5"
+                      fx:id="gradeOptionBox">
+                    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+                    <fx:define>
+                        <ToggleGroup fx:id="tgGO"/>
+                    </fx:define>
+                    <children>
+                        <RadioButton id="rbGrade" text="Letter Grade" toggleGroup="$tgGO" onAction="#handleLetterGradeRB" fx:id="rbGrade"/>
+                        <RadioButton id="rbNoGrade" text="Pass/Fail" toggleGroup="$tgGO" onAction="#handlePassFailRB" fx:id="rbNoGrade"/>
+                    </children>
+                </HBox>
+
+                <HBox id="majorStatusBox"
+                      spacing="5"
+                      fx:id="majorStatusBox">
+                    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+                    <fx:define>
+                        <ToggleGroup fx:id="tgHS"/>
+                    </fx:define>
+                    <children>
+                        <RadioButton id="rbHonor" text="Honor" toggleGroup="$tgHS" onAction="#handleHonorRB" fx:id="rbHonor"/>
+                        <RadioButton id="rbNonHonor" text="Non-Honor" toggleGroup="$tgHS" onAction="#handleNonHonorRB" fx:id="rbNonHonor"/>
+                    </children>
+                    <Text id="lblStatus" text="Status" fx:id="lblStatus"/>
+                    <CheckBox id="cbStatus" text="Honor" fx:id="cbStatus"/>
+                </HBox>
+
+                <HBox id="noteimageBox"
+                      spacing="5"
+                      fx:id="noteimageBox">
+                    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+                    <Text id="lblNotes" text="Notes:" fx:id="lblNotes"/>
+                    <TextArea id="areaNotes" fx:id="areaNotes"/>
+                    <Button id="imgButton" text="Upload Image" onAction="#handleUploadButtonAction" fx:id="imgButton"/>
+                    <ImageView id="imageView" fitWidth="100" preserveRatio="true" fx:id="imageView"/>
+                </HBox>
+
+                <HBox id="box"
+                      spacing="5"
+                      fx:id="box">
+                    <padding><Insets top="5" right="5" bottom="5" left="5"/></padding>
+                    <Button id="addButton" text="Add Student" onAction="#handleAddButtonAction" fx:id="addButton"/>
+                    <Button id="deleteButton" text="Delete Student" onAction="#handleDeleteButtonAction" fx:id="deleteButton"/>
+                    <Button id="saveButton" text="Save Changes" onAction="#handleSaveButtonAction" fx:id="saveButton"/>
+                    <Button id="nextButton" text="Next Student" onAction="#handleNextButtonAction" fx:id="nextButton"/>
+                    <Button id="prevButton" text="Previous Student" onAction="#handlePrevButtonAction"  fx:id="prevButton"/>
+                </HBox>
+
+            </VBox>
+
+
+        </VBox>
+    </Tab>
+
+    <Tab id="tab2"
+         text="Stats"
+         fx:id="tab2">
+        <HBox id="stats"
+              onMouseClicked="#handleStatsMouseClickAction"
+              fx:id="stats">
+            <children>
+                <PieChart id="chartMajor"
+                          title="Major Distribution"
+                          fx:id="chartMajor">
+
+                </PieChart>
+                <BarChart id="chartGrade"
+                          title="Letter Grade Distribution"
+                          fx:id="chartGrade">
+                    <xAxis>
+                        <CategoryAxis fx:id="xAxis"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis fx:id="yAxis"/>
+                    </yAxis>
+                </BarChart>
+            </children>
+        </HBox>
+    </Tab>
+
+</TabPane>
